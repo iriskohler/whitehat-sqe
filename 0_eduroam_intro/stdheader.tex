@@ -1,0 +1,292 @@
+% Because Chris is too lazy to manage his used packages properly and I'm too lazy to change it.
+
+
+% Document Setup:
+% \usepackage[english]{babel}
+% \usepackage{fontspec}
+\usepackage{lastpage}
+\usepackage{epigraph}
+% Figures:
+\usepackage{caption}
+\usepackage{framed}
+\usepackage{mdframed}
+% Lists and Tables:
+\usepackage{mdwlist}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{ltablex}
+% Algorithms and Code:
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{cprotect}
+% Math:
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+% \usepackage{lualatex-math}
+% Drawings and Images:
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{phaistos}
+% Misc. Text Formatting:
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{cancel}
+\usepackage{setspace}
+\usepackage{microtype}
+% Sources
+\usepackage[backend=bibtex,style=ACM-Reference-Format]{biblatex}
+
+
+% use for nested tabularx tables
+\makeatletter
+\newcommand\cellwidth{\TX@col@width}
+\makeatother
+
+% lowercase mathcal fonts -- use \mathpzc
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+
+\renewcommand{\sc}{\scshape}
+\newcommand{\tinyskip}{\vspace{1.5pt plus 0.5pt minus 0.5pt}}
+\setlength{\epigraphwidth}{0.5\linewidth}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+
+\lstset{
+    numbers=left,
+    numberstyle=\scriptsize\ttfamily,
+    basicstyle=\normalsize\ttfamily,
+    upquote=true,
+    frame=L,
+    escapeinside=``
+}
+\lstdefinestyle{skippable}{
+    numberblanklines=false
+}
+\lstdefinestyle{output}{
+    moredelim = [is][\itshape]{|}{|}
+}
+\lstdefinestyle{soln}{
+    moredelim = [is][\color{red}\itshape]{|}{|}
+}
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\SuspendNumber{
+    \lst@AddToHook{OnNewLine}{
+    \let\thelstnumber\relax
+        \advance\c@lstnumber-\@ne\relax
+    }
+}
+
+\newcommand*\ResumeNumber[1]{
+    \setcounter{lstnumber}{\numexpr#1-1\relax}
+    \lst@AddToHook{OnNewLine}{
+        \let\thelstnumber\origthelstnumber
+        \refstepcounter{lstnumber}
+    }
+}
+\makeatother
+
+%%% Theorem Styles %%%
+\theoremstyle{definition}\newtheorem{definition*}{Definition}
+\theoremstyle{definition}\newtheorem{theorem*}{Theorem}
+\theoremstyle{definition}\newtheorem{corollary*}{Corollary}
+\theoremstyle{definition}\newtheorem{lemma*}{Lemma}
+\theoremstyle{definition}\newtheorem{claim*}{Claim}
+\theoremstyle{definition}\newtheorem{proposition*}{Proposition}
+\theoremstyle{definition}\newtheorem{note*}{Note}
+\theoremstyle{definition}\newtheorem{case*}{Case}
+\theoremstyle{definition}\newtheorem{abstraction*}{Abstraction}
+\theoremstyle{example}\newtheorem{excont}{Example \textit{(cont.)}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+%%% Math operators %%%
+\DeclareMathOperator{\contradiction}{\rightarrow\leftarrow}
+\DeclareMathOperator{\Contradiction}{\Rightarrow\Leftarrow}
+\let\implies\relax
+\DeclareMathOperator{\implies}{\rightarrow}
+\DeclareMathOperator{\Implies}{\Rightarrow}
+\let\iff\relax
+\DeclareMathOperator{\iff}{\leftrightarrow}
+\DeclareMathOperator{\Iff}{\Leftrightarrow}
+\DeclareMathOperator{\sentails}{\vdash} % symbolic entailment
+\DeclareMathOperator{\lentails}{\models} % logical entailment
+\newcommand{\fn}[2]{#1\hspace{-0.1em}\left(#2\right)}
+\newcommand{\bfloor}[1]{\lfloor #1 \rfloor} % floor
+\newcommand{\bceil}[1]{\lceil #1 \rceil} % ceiling
+\newcommand{\lcm}{\textrm{lcm}} % least common multiple
+\newcommand{\Sum}{\displaystyle\sum} % sum with subscript under it
+\newcommand{\divs}{\ |\ } % divides
+\newcommand{\notdivs}{\not |\ } % does not divide
+
+%%% Sets %%%
+\newcommand{\set}[1]{\{ #1 \}} % set
+\newcommand{\st}{\ | \ } % vertical bar for such that, but with spaces 
+\newcommand{\setneg}[1]{\overline{\rm #1}} % negation of a set
+
+\DeclareMathOperator{\Bigcup}{\displaystyle\bigcup} % cup with subscript under it
+\DeclareMathOperator{\Bigcap}{\displaystyle\bigcap} % cap with subscript under it
+
+\DeclareMathOperator{\im}{\textrm{im}} % image of a function
+\DeclareMathOperator{\Inn}{\textrm{Inn}} % Set of inner automorphisms
+\DeclareMathOperator{\Aut}{\textrm{Aut}} % Set of automorphisms
+\newcommand{\bangle}[1]{\langle #1 \rangle} % angle brackets
+\DeclareMathOperator{\normaleq}{\trianglelefteq} % normal subgroup of
+\DeclareMathOperator{\nullspace}{\textrm{null}} % nullspace of a vectorspace
+\DeclareMathOperator{\range}{\textrm{range}} % range of a vectorspace
+\DeclareMathOperator{\F}{\mathbb{F}} % field
+\DeclareMathOperator{\C}{\mathbb{C}} % complex numbers
+\DeclareMathOperator{\R}{\mathbb{R}} % real numbers
+\DeclareMathOperator{\Q}{\mathbb{Q}} % rational numbers
+\DeclareMathOperator{\Z}{\mathbb{Z}} % integers
+\DeclareMathOperator{\N}{\mathbb{N}} % natural numbers
+\newcommand{\fcomp}[2]{#1 \circ #2} % function composition
+
+
+%%% Vectors and Matrices %%%
+
+\makeatletter  
+\newcommand{\cbmatrix}[1]{\begin{bmatrix} #1\cbmatrixCheckRecursion} % column bracket matrix
+% helper functions to add additional columns %
+\newcommand{\cbmatrixCheckRecursion}{\@ifnextchar\bgroup{\cbmatrixNextArg}{\end{bmatrix}}}
+\newcommand{\cbmatrixNextArg}[1]{\\ #1 \@ifnextchar\bgroup{\cbmatrixNextArg}{\end{bmatrix}}}
+\makeatother
+
+%%% Description Logic %%%
+\newcommand{\dlsubset}{\ \sqsubset\ } % subset
+\newcommand{\dlsubseteq}{\ \sqsubseteq \ } % subseteq
+\newcommand{\dlcap}{\ \sqcap\ } % intersection
+\newcommand{\dlcup}{\ \sqcup\ } % union
+
+%%% Algorithms %%%
+\algrenewcommand\algorithmicrequire{\textbf{Input:}} % Require -> Input
+\algrenewcommand\algorithmicensure{\textbf{Output:}} % Ensure -> Output
+\DeclareMathOperator{\assign}{\leftarrow} % assign value to symbol
+
+\renewcommand{\algorithmiccomment}[1]{\hspace{2em}// #1}
+\algnewcommand\Input{\item[\textbf{Input:}]}
+\algnewcommand\Output{\item[\textbf{Output:}]}
+\algnewcommand{\Let}[1]{\State{\textbf{let} #1}}
+\renewcommand{\algorithmicreturn}[1]{\State{\textbf{return}#1}}
+
+%%% Graphs %%%
+\usetikzlibrary{
+    positioning,
+    calc,
+    automata,
+    arrows,
+    arrows.meta,
+    decorations.pathreplacing,
+    decorations.pathmorphing,
+    intersections,
+    fit,
+    chains,
+    shapes,
+    shapes.misc
+}
+
+%%% Other math %%%
+
+\newcommand{\Dfrac}[2]{^{#1}/_{#2}}
+
+%%% Environments %%%
+
+% Grammars
+
+\makeatletter  
+\newenvironment{grammar}[1] {
+   % use this to generate grammar rules %
+   % usage: to construct LHS -> RHS1 | RHS2 | ..., use \grammarrule{LHS}{RHS1}{RHS2}...
+   \newcommand{\grammarrule}[2]{##1 & $\rightarrow$ & \grammarRuleRHS{##2} }
+
+   % helper functions to give grammarrule variable arguments %
+   \newcommand{\grammarRuleRHS}[1]{##1\grammarRuleCheckRecursion}
+   \newcommand{\grammarRuleCheckRecursion}{\@ifnextchar\bgroup{\grammarRuleNextArg}{\par}}
+   \newcommand{\grammarRuleNextArg}[1]{$\ |\ $ ##1\@ifnextchar\bgroup{\grammarRuleNextArg}{\par}}
+   
+   
+   % print the name of the grammar
+   #1:
+   % formatting stuff
+   \begin{center}
+   \begin{tabular}{ l c l }
+}
+{
+   \end{tabular}
+   \end{center}
+}
+\makeatother
+
+% Nice math environment for stacking equations linearly, ie
+%      0 = v + (-v)
+%        = v + (-1)v
+%        = v + (1-2)v
+\newenvironment{proofeq} {
+
+   % equals
+   \NewDocumentCommand\proofeqline{mg}{%
+      \IfNoValueTF{##2}{ \ & $=$ & ##1 \\ }{ ##1 & $=$ & ##2 \\ }%
+   }
+
+   % not equals
+   \NewDocumentCommand\proofneqline{mg}{%
+      \IfNoValueTF{##2}{ \ & $\neq$ & ##1 \\ }{ ##1 & $\neq$ & ##2 \\ }%
+   }
+
+   % greater than
+   \NewDocumentCommand\proofgtline{mg}{%
+      \IfNoValueTF{##2}{ \ & $>$ & ##1 \\ }{ ##1 & $>$ & ##2 \\ }%
+   }
+
+   % greater than or equal to
+   \NewDocumentCommand\proofgeqline{mg}{%
+      \IfNoValueTF{##2}{ \ & $\geq$ & ##1 \\ }{ ##1 & $\geq$ & ##2 \\ }%
+   }
+
+   % less than or equal to
+   \NewDocumentCommand\proofleqline{mg}{%
+      \IfNoValueTF{##2}{ \ & $\leq$ & ##1 \\ }{ ##1 & $\leq$ & ##2 \\ }%
+   }
+
+   % less than
+   \NewDocumentCommand\proofltline{mg}{%
+      \IfNoValueTF{##2}{ \ & $<$ & ##1 \\ }{ ##1 & $\<$ & ##2 \\ }%
+   }
+
+   % if and only if
+   \NewDocumentCommand\proofiffline{mg}{%
+      \IfNoValueTF{##2}{ \ & if and only if & ##1 \\ }{ ##1 & if and only if & ##2 \\ }%
+   }
+
+   % equivalent
+   \NewDocumentCommand\proofequivline{mg}{%
+      \IfNoValueTF{##2}{ \ & $\equiv$ & ##1 \\ }{ ##1 & $\equiv$ & ##2 \\ }%
+   }
+
+   % If need to use additional line
+   \NewDocumentCommand\proofaddline{mg}{%
+      \IfNoValueTF{##2}{ \ & \  & ##1 \\ }{ ##1 & \  & ##2 \\ }%
+   }
+
+   % blank line
+   \newcommand{\proofblankline}{\ & \ & \ \\}
+
+   \begin{center}
+      \begin{tabular}{ r c l }
+}
+{
+      \end{tabular}
+   \end{center}
+   \ \\
+}
